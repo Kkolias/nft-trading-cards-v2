@@ -37,7 +37,7 @@ export class PackEntity {
   price: number;
 
   @Column('jsonb')
-  configJson: Record<string, unknown>;
+  configJson: Record<string, string | number | boolean>;
 
   @OneToMany(() => CardEntity, (card) => card.pack)
   cards: CardEntity[];

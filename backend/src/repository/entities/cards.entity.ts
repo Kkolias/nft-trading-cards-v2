@@ -1,5 +1,5 @@
 /*
-esim id (PK), name, rarity, image_url, power, series (FK card_series.id)
+esim id (PK), name, rarity, image_url, power, series (FK pack_id)
 */
 
 import { CardRarity } from 'src/enums/cardRarity.enum';
