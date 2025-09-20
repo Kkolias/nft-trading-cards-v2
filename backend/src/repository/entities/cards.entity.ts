@@ -2,7 +2,7 @@
 esim id (PK), name, rarity, image_url, power, series (FK pack_id)
 */
 
-import { CardRarity } from 'src/enums/cardRarity.enum';
+import { CardRarity } from '../../enums/cardRarity.enum';
 import {
   Column,
   CreateDateColumn,
@@ -37,6 +37,9 @@ export class CardEntity {
 
   @Column()
   imageUrl: string;
+
+  @Column({ type: 'int' })
+  supply: number; // max possible supply with int is 2,147,483,647
 
   @ManyToOne(() => PackEntity, (pack) => pack.cards)
   @JoinColumn({ name: 'pack_id' })

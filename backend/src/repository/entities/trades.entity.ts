@@ -22,14 +22,14 @@ export class TradeEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @Column()
-  tokenId: string;
+  @Column({ type: 'bigint' })
+  tokenId: number;
 
   @Column()
   sellerWallet: string;
 
-  @Column('decimal', { precision: 10, scale: 2 })
-  price: number;
+  @Column('numeric', { precision: 36, scale: 0 })
+  priceWei: number;
 
   @Column({
     type: 'enum',

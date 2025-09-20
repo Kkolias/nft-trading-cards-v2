@@ -4,8 +4,8 @@ export interface Trade {
   id: string;
   createdAt: Date;
   updatedAt: Date;
-  tokenId: string;
+  tokenId: number;
   sellerWallet: string;
-  price: number;
+  priceWei: number;
   status: TradeStatus;
 }

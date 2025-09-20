@@ -19,7 +19,7 @@ export class TradesStoreService {
         updatedAt: true,
         sellerWallet: true,
         tokenId: true,
-        price: true,
+        priceWei: true,
         status: true,
       },
     });

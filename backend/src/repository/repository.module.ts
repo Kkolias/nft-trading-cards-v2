@@ -6,6 +6,7 @@ import { PackEntity } from './entities/packs.entity';
 import { CardEntity } from './entities/cards.entity';
 import { OpenEntity } from './entities/opens.entity';
 import { TradeEntity } from './entities/trades.entity';
+import { MintedCardEntity } from './entities/minted-cards.entity';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { TradeEntity } from './entities/trades.entity';
       CardEntity,
       OpenEntity,
       TradeEntity,
+      MintedCardEntity
     ]),
   ],
   providers: [RepositoryService],

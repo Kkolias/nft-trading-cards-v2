@@ -11,6 +11,8 @@ import { PackEntity } from './entities/packs.entity';
 import { CardEntity } from './entities/cards.entity';
 import { OpenEntity } from './entities/opens.entity';
 import { TradeEntity } from './entities/trades.entity';
+import { MintedCardsStoreService } from './services/minted-cards-store';
+import { MintedCardEntity } from './entities/minted-cards.entity';
 
 @Injectable()
 export class RepositoryService {
@@ -19,6 +21,7 @@ export class RepositoryService {
   public readonly cardsStore: CardsStoreService;
   public readonly opensStore: OpensStoreService;
   public readonly tradesStore: TradesStoreService;
+  public readonly mintedCardsStore: MintedCardsStoreService;
 
   constructor(
     @InjectRepository(UserEntity)
@@ -31,11 +34,14 @@ export class RepositoryService {
     private readonly opens: Repository<OpenEntity>,
     @InjectRepository(TradeEntity)
     private readonly trades: Repository<TradeEntity>,
+    @InjectRepository(MintedCardEntity)
+    private readonly mintedCards: Repository<MintedCardEntity>,
   ) {
     this.userStore = new UserStoreService(this.user);
     this.packsStore = new PacksStoreService(this.packs);
     this.cardsStore = new CardsStoreService(this.cards);
     this.opensStore = new OpensStoreService(this.opens);
     this.tradesStore = new TradesStoreService(this.trades);
+    this.mintedCardsStore = new MintedCardsStoreService(this.mintedCards);
   }
 }

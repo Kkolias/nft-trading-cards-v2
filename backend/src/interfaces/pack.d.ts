@@ -8,7 +8,7 @@ export interface Pack {
   name: string;
   description: string;
   imageUrl: string;
-  price: number;
+  priceWei: number;
   configJson: Record<string, string | number | boolean>;
   cards: Card[];
   opens: OpenItem[];

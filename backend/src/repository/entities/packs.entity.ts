@@ -33,8 +33,8 @@ export class PackEntity {
   @Column()
   imageUrl: string;
 
-  @Column('decimal', { precision: 10, scale: 2 })
-  price: number;
+  @Column('numeric', { precision: 36, scale: 0 })
+  priceWei: number;
 
   @Column('jsonb')
   configJson: Record<string, string | number | boolean>;

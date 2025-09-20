@@ -18,7 +18,7 @@ export class PacksStoreService {
         createdAt: true,
         updatedAt: true,
         name: true,
-        price: true,
+        priceWei: true,
         description: true,
         imageUrl: true,
       },

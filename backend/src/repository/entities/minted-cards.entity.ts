@@ -6,8 +6,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -24,14 +25,15 @@ export class MintedCardEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @Column()
-  tokenId: string;
+  @Column({ type: 'bigint' })
+  tokenId: number
 
-  @OneToOne(() => CardEntity)
+  @ManyToOne(() => CardEntity)
   @JoinColumn({ name: 'card_id' })
   card: CardEntity;
 
   @Column()
+  @Index()
   ownerWallet: string;
 
   @Column({ type: 'timestamptz' })
