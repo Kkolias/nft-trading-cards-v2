@@ -38,10 +38,7 @@ export class CardEntity {
   @Column()
   imageUrl: string;
 
-  @Column()
-  power: number;
-
   @ManyToOne(() => CardSeriesEntity, (series) => series.cards)
   @JoinColumn({ name: 'series_id' })
-  series: CardSeriesEntity;
+  serie: CardSeriesEntity;
 }

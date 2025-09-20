@@ -28,6 +28,6 @@ export class CardSeriesEntity {
   @Column()
   imageUrl: string;
 
-  @OneToMany(() => CardEntity, (card) => card.series)
+  @OneToMany(() => CardEntity, (card) => card.serie)
   cards: CardEntity[];
 }
