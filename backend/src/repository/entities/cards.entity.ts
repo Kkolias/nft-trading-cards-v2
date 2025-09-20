@@ -12,7 +12,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { CardSeriesEntity } from './card-series.entity';
+import { PackEntity } from './packs.entity';
 
 @Entity('cards')
 export class CardEntity {
@@ -38,7 +38,7 @@ export class CardEntity {
   @Column()
   imageUrl: string;
 
-  @ManyToOne(() => CardSeriesEntity, (series) => series.cards)
-  @JoinColumn({ name: 'series_id' })
-  serie: CardSeriesEntity;
+  @ManyToOne(() => PackEntity, (pack) => pack.cards)
+  @JoinColumn({ name: 'pack_id' })
+  pack: PackEntity;
 }
