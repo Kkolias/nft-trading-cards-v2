@@ -6,13 +6,19 @@ import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppDataSource } from 'ormconfig';
 import { UserModule } from './user/user.module';
+import { CardsModule } from './cards/cards.module';
+import { PublicModule } from './public/public.module';
+import { PacksModule } from './packs/packs.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(AppDataSource.options),
     RepositoryModule,
     AuthModule,
-    UserModule
+    UserModule,
+    CardsModule,
+    PublicModule,
+    PacksModule,
   ],
   controllers: [AppController],
   providers: [AppService],

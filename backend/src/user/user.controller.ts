@@ -43,6 +43,7 @@ export class UserController {
   @UseGuards(AuthGuard('jwt'))
   @Get('profile')
   getProfile(@CurrentUser() user: any) {
+    console.log("HERE")
     return user;
   }
 }

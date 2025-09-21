@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { DeepPartial, Repository } from 'typeorm';
 import { Card } from '../../interfaces/card';
 
 @Injectable()
 export class CardsStoreService {
   constructor(private readonly cardsRepository: Repository<Card>) {}
 
-  async save(payload: Partial<Card>): Promise<Card> {
+  async save(payload: DeepPartial<Card>): Promise<Card> {
     return await this.cardsRepository.save(payload);
   }
 
