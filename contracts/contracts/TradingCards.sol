@@ -46,4 +46,11 @@ abstract contract TradingCards is ERC1155, Ownable {
     function setTreasury(address newTreasury) external onlyOwner {
         treasury = newTreasury;
     }
+
+    /// apissa luodun packin on-chain alustus
+    function initNewPack(uint256 packId, uint256 packPriceWei) external onlyOwner {
+        require(packPrice[packId] == 0, 'Pack already initialized');
+        require(packPriceWei > 0, 'Invalid new pack price');
+        packPrice[packId] = packPriceWei;
+    }
 }
