@@ -20,11 +20,13 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "docker:compose": "docker-compose -p nft-trading-cards-db up -d",
     "docker:compose:new": "docker compose -p nft-trading-cards-db up -d",
+    "docker:compose:down": "docker compose -p nft-trading-cards-db down -v",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli -d ormconfig.ts",
     "migration:generate": "node ./scripts/generate-migration.js",
     "migration:run": "pnpm build && pnpm typeorm migration:run",
     "migration:revert": "pnpm typeorm migration:revert",
-    "seed": "ts-node -r tsconfig-paths/register ./scripts/seed.ts"
+    "seed": "ts-node -r tsconfig-paths/register ./scripts/seed.ts",
+    "reset:data": "ts-node -r tsconfig-paths/register ./scripts/remove.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",

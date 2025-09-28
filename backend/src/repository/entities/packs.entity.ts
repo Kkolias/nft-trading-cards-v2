@@ -6,6 +6,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Generated,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -17,6 +18,11 @@ import { OpenEntity } from './opens.entity';
 export class PackEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  // auto generated int id for on chain pack
+  @Generated('increment')
+  @Column({ type: 'int' })
+  onChainId: number;
 
   @CreateDateColumn()
   createdAt: Date;

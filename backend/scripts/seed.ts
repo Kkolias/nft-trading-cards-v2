@@ -5,6 +5,9 @@ import { CardEntity } from '../src/repository/entities/cards.entity';
 import { CardRarity } from '../src/enums/cardRarity.enum';
 import { OpenEntity } from 'src/repository/entities/opens.entity';
 import { MintedCardEntity } from 'src/repository/entities/minted-cards.entity';
+import { UserEntity } from 'src/repository/entities/user.entity';
+import { hashPassword } from 'src/user/utils/hashPassword';
+import { UserRole } from 'src/enums/userRole.enum';
 
 async function seedDatabase(dataSource: DataSource) {
   await dataSource.initialize();
@@ -13,13 +16,26 @@ async function seedDatabase(dataSource: DataSource) {
   const cardRepository = dataSource.getRepository(CardEntity);
   const openRepository = dataSource.getRepository(OpenEntity);
   const mintedCardRepository = dataSource.getRepository(MintedCardEntity);
+  const userRepository = dataSource.getRepository(UserEntity);
 
   // Clear existing data
   await cardRepository.delete({});
   await packRepository.delete({});
   await openRepository.delete({});
   await mintedCardRepository.delete({});
+  await userRepository.delete({});
   console.log('Existing data cleared');
+
+  console.log("Create default root user");
+  const user = {
+    name: 'Admin User',
+    email: 'admin@example.com',
+    password: hashPassword('password'),
+    role: UserRole.admin
+  }
+  const savedUser: UserEntity = await userRepository.save(user)
+  console.log("Saved User: ", savedUser)
+
   // Create packs
   const packs = [
     {
@@ -132,7 +148,7 @@ const dataSource = new DataSource({
   password: 'password',
   database: 'nestdb',
   // entities: ['dist/src/repository/entities/*.entity{.ts,.js}'],
-  entities: [PackEntity, CardEntity, OpenEntity, MintedCardEntity],
+  entities: [PackEntity, CardEntity, OpenEntity, MintedCardEntity, UserEntity],
   synchronize: true,
 });
 seedDatabase(dataSource).catch((error) => {
