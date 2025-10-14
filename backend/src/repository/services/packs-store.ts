@@ -10,6 +10,10 @@ export class PacksStoreService {
     return await this.packsRepository.save(payload);
   }
 
+  async create(payload: DeepPartial<Pack>): Promise<Pack> {
+    return await this.packsRepository.create(payload);
+  }
+
   async findById(id: string): Promise<Pack | null> {
     return this.packsRepository.findOne({
       where: { id },
