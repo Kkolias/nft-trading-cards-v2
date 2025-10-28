@@ -9,6 +9,7 @@ import { UserModule } from './user/user.module';
 import { CardsModule } from './cards/cards.module';
 import { PublicModule } from './public/public.module';
 import { PacksModule } from './packs/packs.module';
+import { ContractsModule } from './blockchain/trading-cards-contract.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { PacksModule } from './packs/packs.module';
     CardsModule,
     PublicModule,
     PacksModule,
+    ContractsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

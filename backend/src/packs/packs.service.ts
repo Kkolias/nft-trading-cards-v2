@@ -5,13 +5,13 @@ import { isAdmin } from '../utils/isAdmin';
 import { errorForbidden } from '../utils/errorForbidden';
 import { User } from '../interfaces/user';
 import { Pack } from '../interfaces/pack';
-// import { TradingCardsContract } from '../blockchain/trading-cards.contract';
+import { TradingCardsContract } from '../blockchain/trading-cards.contract';
 
 @Injectable()
 export class PacksService {
   constructor(
     private readonly repositoryService: RepositoryService,
-    // readonly tradingCardsContract: TradingCardsContract,
+    readonly tradingCardsContract: TradingCardsContract,
   ) {}
 
   async createPack(payload: CreatePackDto, user: User): Promise<Pack> {
@@ -42,5 +42,9 @@ export class PacksService {
     }
 
     return await this.repositoryService.packsStore.save(payload);
+  }
+
+  testContractInstance() {
+    return this.tradingCardsContract.getInstance();
   }
 }

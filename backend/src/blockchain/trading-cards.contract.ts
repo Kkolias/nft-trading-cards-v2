@@ -1,8 +1,6 @@
-// src/blockchain/trading-cards.contract.ts
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ethers } from 'ethers';
-import { ABI } from './blockchain.const';
-// import deployed_addresses from '../../../contracts/ignition/deployments/chain-31337/deployed_addresses.json'
+import contractConfig from '../../contract-config.json';
 
 @Injectable()
 export class TradingCardsContract implements OnModuleInit {
@@ -12,9 +10,11 @@ export class TradingCardsContract implements OnModuleInit {
     const provider = new ethers.JsonRpcProvider(process.env.RPC_URL);
     const wallet = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
 
+    const abi = this.getAbi();
+
     this.contract = new ethers.Contract(
       process.env.CONTRACT_ADDRESS!,
-      this.getAbi(),
+      abi,
       wallet
     );
   }
@@ -34,8 +34,8 @@ export class TradingCardsContract implements OnModuleInit {
     return tx.wait();
   }
 
-  private getAbi(): string {
-    return ABI
+  private getAbi() {
+    return contractConfig?.contractABI
   }
 
   getInstance() {

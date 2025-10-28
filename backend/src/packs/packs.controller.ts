@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { PacksService } from './packs.service';
 import { CreatePackDto, UpdatePackDto } from './dto/packs.dto';
@@ -25,5 +25,10 @@ export class PacksController {
     @CurrentUser() currentUser: User,
   ): Promise<Pack> {
     return this.service.updatePack(payload, currentUser);
+  }
+
+  @Get('test-contract')
+  async testContract() {
+    return this.service.testContractInstance();
   }
 }

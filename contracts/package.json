@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "send": "hardhat run scripts/send-op-tx.ts",
+    "write-config": "hardhat run scripts/write-config.ts",
     "deploy:demo": "hardhat ignition deploy ignition/modules/Counter.ts --network localhost",
     "deploy:trading-cards": "hardhat ignition deploy ignition/modules/TradingCards.ts --network localhost",
     "node": "hardhat node"
