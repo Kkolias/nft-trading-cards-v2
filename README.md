@@ -12,6 +12,7 @@
 - compilaus varmistus
 3. pnpm deploy:trading-cards
 - deployaa
+4. backend käyntiin -> cd backend pnpm start:dev
 
 ### jos kusee
 
