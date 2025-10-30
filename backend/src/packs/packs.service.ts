@@ -22,11 +22,14 @@ export class PacksService {
       ...rest,
       cards: cardIdList.map((id) => ({ id })),
     };
-    const newPack = await this.repositoryService.packsStore.create(packPayload);
+    const newPack = await this.repositoryService.packsStore.save(packPayload);
+    console.log("New pack created:", newPack);
 
-    // await this.tradingCardsContract.initNewPack(newPack.onChainId, newPack.priceWei);
+    const c = await this.tradingCardsContract.initNewPack(newPack.onChainId, newPack.priceWei);
+    console.log('Initialized new pack on-chain:', c);
 
-    return await this.repositoryService.packsStore.save(newPack);
+    return newPack;
+    // return await this.repositoryService.packsStore.save(newPack);
   }
 
   async updatePack(payload: UpdatePackDto, user: User): Promise<Pack> {

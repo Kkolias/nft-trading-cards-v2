@@ -19,13 +19,14 @@ export class TradingCardsContract implements OnModuleInit {
     );
   }
 
-  async initNewPack(packId: number, priceWei: number) {
-    const tx = await this.contract.initNewPack(packId, priceWei);
+  async initNewPack(packId: number, priceWei: string | number | bigint) {
+    console.log("Kutsutaan", packId, priceWei);
+    const tx = await this.contract.initNewPack(packId, priceWei.toString());
     return tx.wait();
   }
 
-  async setPackPrice(packId: number, priceWei: string) {
-    const tx = await this.contract.setPackPrice(packId, priceWei);
+  async setPackPrice(packId: number, priceWei: string | number | bigint) {
+    const tx = await this.contract.setPackPrice(packId, priceWei.toString());
     return tx.wait();
   }
 
