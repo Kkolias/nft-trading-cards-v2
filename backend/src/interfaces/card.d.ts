@@ -6,6 +6,7 @@ export interface Card {
   createdAt: Date;
   updatedAt: Date;
   name: string;
+  tokenId: number;
   rarity: CardRarity;
   imageUrl: string;
   pack: Pack;

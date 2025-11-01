@@ -1,0 +1,12 @@
+
+
+
+
+//---------------------------------------------
+LISÄÄ NAMING STRATEGY
+pnpm add typeorm-naming-strategies
+
+// datasourceen tai ormconfigiin
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+
+namingStrategy: new SnakeNamingStrategy(), // 💥 tämä ratkaisee

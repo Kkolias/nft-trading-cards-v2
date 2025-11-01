@@ -7,9 +7,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Generated,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  Unique,
   UpdateDateColumn,
 } from 'typeorm';
 import { PackEntity } from './packs.entity';
@@ -38,8 +40,12 @@ export class CardEntity {
   @Column()
   imageUrl: string;
 
+  @Generated('increment')
+  @Column({ type: 'bigint' })
+  tokenId: number;
+
   @Column({ type: 'int' })
-  supply: number; // max possible supply with int is 2,147,483,647
+  supply: number; // max possible supply with int is 2 147 483 647 kpl
 
   @ManyToOne(() => PackEntity, (pack) => pack.cards)
   @JoinColumn({ name: 'pack_id' })

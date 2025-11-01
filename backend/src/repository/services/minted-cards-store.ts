@@ -19,7 +19,6 @@ export class MintedCardsStoreService {
         id: true,
         createdAt: true,
         updatedAt: true,
-        tokenId: true,
         ownerWallet: true,
         mintedAt: true,
         card: {

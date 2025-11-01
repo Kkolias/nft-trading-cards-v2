@@ -4,6 +4,10 @@
 # Contracts
 - Smart contract
 
+- käytetään ERC1155 multitoken standardia.
+- kortit eivät ole käyttäjä kohtaisia vaan kortin tokenId voi olla useammalla käyttäjällä
+- unique korttimahdollisuudet huonot. Kaikki tietyt kortit ovat samanlaisia keskenään.
+
 ## devaus
 
 1. pnpm node

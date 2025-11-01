@@ -1,4 +1,4 @@
-import { TradeStatus } from 'src/enums/TradeStatus.enum';
+import { TradeStatus } from '../../enums/TradeStatus.enum';
 import {
   Column,
   CreateDateColumn,

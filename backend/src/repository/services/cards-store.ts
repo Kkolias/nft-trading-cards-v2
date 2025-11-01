@@ -18,6 +18,7 @@ export class CardsStoreService {
         createdAt: true,
         updatedAt: true,
         name: true,
+        tokenId: true,
         rarity: true,
         imageUrl: true,
       },
