@@ -17,8 +17,8 @@ contract TradingCards is ERC1155, Ownable {
     /// tokeneiden metadata base URI (esim. "https://api.example.com/cards/{id}.json")
     string private baseMetadataUri;
 
-    /// tokeneiden supply seuranta (tokenId -> minted amount)
-    mapping(uint256 => uint256) public totalSupply;
+    mapping(uint256 => uint256) public totalSupply; // tokenId → minted amount
+    mapping(uint256 => bool) public cardExists; // tokenId → onko luotu jo
 
     event PackPurchased(
         address indexed buyer,
@@ -31,6 +31,8 @@ contract TradingCards is ERC1155, Ownable {
         uint256 indexed tokenId,
         uint256 amount
     );
+
+    event CardCreated(uint256 indexed tokenId, string uri);
 
     constructor(
         string memory baseUri,
@@ -59,6 +61,21 @@ contract TradingCards is ERC1155, Ownable {
         // Tässä EI mintata kortteja → backend kuuntelee eventin ja minttaa erikseen
     }
 
+    // create new card item
+    function createNewCard(uint256 tokenId) external onlyOwner {
+        require(!cardExists[tokenId], "Card already exists");
+
+        cardExists[tokenId] = true;
+        totalSupply[tokenId] = 0;
+
+        emit CardCreated(
+            tokenId,
+            string(
+                abi.encodePacked(baseMetadataUri, tokenId.toString(), ".json")
+            )
+        );
+    }
+
     /// minttaa uuden kortin backendin kutsusta
     function mintCard(
         address to,
@@ -67,6 +84,7 @@ contract TradingCards is ERC1155, Ownable {
     ) external onlyOwner {
         require(amount > 0, "Invalid mint amount");
         require(to != address(0), "Invalid recipient address"); /// estää minttauksen noll-osoitteeseen
+        require(cardExists[tokenId], "Card does not exist");
 
         _mint(to, tokenId, amount, "");
         totalSupply[tokenId] += amount;

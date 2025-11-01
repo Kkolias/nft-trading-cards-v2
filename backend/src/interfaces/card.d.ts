@@ -8,6 +8,7 @@ export interface Card {
   name: string;
   tokenId: number;
   rarity: CardRarity;
+  supply: number;
   imageUrl: string;
   pack: Pack;
 }

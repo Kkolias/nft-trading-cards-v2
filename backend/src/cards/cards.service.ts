@@ -5,10 +5,14 @@ import { errorForbidden } from '../utils/errorForbidden';
 import { isAdmin } from '../utils/isAdmin';
 import { Card } from '../interfaces/card';
 import { CreateCardPayloadDto, UpdateCardPayloadDto } from './dto/cards.dto';
+import { TradingCardsContract } from '../blockchain/trading-cards.contract';
 
 @Injectable()
 export class CardsService {
-  constructor(private readonly repositoryService: RepositoryService) {}
+  constructor(
+    private readonly repositoryService: RepositoryService,
+    readonly tradingCardsContract: TradingCardsContract,
+  ) {}
 
   async createCard(payload: CreateCardPayloadDto, user: User): Promise<Card> {
     if (!isAdmin(user)) errorForbidden();
@@ -18,7 +22,11 @@ export class CardsService {
       ...rest,
       pack: { id: packId },
     };
-    return await this.repositoryService.cardsStore.save(cardPayload);
+    const newCard = await this.repositoryService.cardsStore.save(cardPayload);
+    console.log("New card created:", newCard);
+    const c = await this.tradingCardsContract.createNewCard(newCard.tokenId);
+    console.log('Created new card on-chain:', c);
+    return newCard;
   }
 
   async updateCard(payload: UpdateCardPayloadDto, user: User): Promise<Card> {
