@@ -12,11 +12,21 @@
 
 1. pnpm node
 - localhost node päälle
+
 2. npx hardhat compile
 - compilaus varmistus
+
 3. pnpm deploy:trading-cards
 - deployaa
-4. backend käyntiin -> cd backend pnpm start:dev
+
+4. pnpm write-config
+- ajaa backendille oikean ABI configin
+
+5. tsekkaa että contract address on oikein backend .env
+- contract address on ignition/deployments/<chain-id>/deployed_addresses.json
+
+6. backend käyntiin -> cd backend pnpm start:dev
+
 
 ### jos kusee
 

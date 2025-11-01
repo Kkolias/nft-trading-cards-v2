@@ -10,16 +10,17 @@ export class TradingCardsContract implements OnModuleInit {
     const provider = new ethers.JsonRpcProvider(process.env.RPC_URL);
     const wallet = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
 
+    const contractAddress = this.getContractAddress();
     const abi = this.getAbi();
 
     this.contract = new ethers.Contract(
-      process.env.CONTRACT_ADDRESS!,
+      contractAddress,
       abi,
       wallet,
     );
 
     console.log('Contract owner:', await this.contract.owner());
-    console.log("wallet", await wallet.getAddress());
+    console.log('wallet', await wallet.getAddress());
   }
 
   async initNewPack(packId: number, priceWei: string | number | bigint) {
@@ -58,6 +59,11 @@ export class TradingCardsContract implements OnModuleInit {
 
   private getAbi() {
     return contractConfig?.contractABI;
+  }
+
+  private getContractAddress() {
+    // const address = process.env.CONTRACT_ADDRESS;
+    return contractConfig?.contractAddress;
   }
 
   getInstance() {
