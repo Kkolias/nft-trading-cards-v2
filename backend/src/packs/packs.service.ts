@@ -23,9 +23,12 @@ export class PacksService {
       cards: cardIdList.map((id) => ({ id })),
     };
     const newPack = await this.repositoryService.packsStore.save(packPayload);
-    console.log("New pack created:", newPack);
+    console.log('New pack created:', newPack);
 
-    const c = await this.tradingCardsContract.initNewPack(newPack.onChainId, newPack.priceWei);
+    const c = await this.tradingCardsContract.initNewPack(
+      newPack.onChainId,
+      newPack.priceWei,
+    );
     console.log('Initialized new pack on-chain:', c);
 
     return newPack;
@@ -45,9 +48,5 @@ export class PacksService {
     }
 
     return await this.repositoryService.packsStore.save(payload);
-  }
-
-  testContractInstance() {
-    return this.tradingCardsContract.getInstance();
   }
 }

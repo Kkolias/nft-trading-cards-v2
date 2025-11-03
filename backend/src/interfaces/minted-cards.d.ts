@@ -5,6 +5,7 @@ export interface MintedCard {
   createdAt: Date;
   updatedAt: Date;
   card: Card;
+  amount: number;
   ownerWallet: string;
   mintedAt: Date;
 }

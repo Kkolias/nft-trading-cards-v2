@@ -47,6 +47,9 @@ export class CardEntity {
   @Column({ type: 'int' })
   supply: number; // max possible supply with int is 2 147 483 647 kpl
 
+  @Column({ type: 'int', default: 0 })
+  unboxCount: number;
+
   @ManyToOne(() => PackEntity, (pack) => pack.cards)
   @JoinColumn({ name: 'pack_id' })
   pack: PackEntity;

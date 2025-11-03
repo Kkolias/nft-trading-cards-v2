@@ -9,6 +9,7 @@ export interface Card {
   tokenId: number;
   rarity: CardRarity;
   supply: number;
+  unboxCount: number;
   imageUrl: string;
   pack: Pack;
 }

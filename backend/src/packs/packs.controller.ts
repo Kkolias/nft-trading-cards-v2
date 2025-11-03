@@ -26,9 +26,4 @@ export class PacksController {
   ): Promise<Pack> {
     return this.service.updatePack(payload, currentUser);
   }
-
-  @Get('test-contract')
-  async testContract() {
-    return this.service.testContractInstance();
-  }
 }

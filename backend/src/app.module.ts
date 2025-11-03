@@ -10,6 +10,7 @@ import { CardsModule } from './cards/cards.module';
 import { PublicModule } from './public/public.module';
 import { PacksModule } from './packs/packs.module';
 import { ContractsModule } from './blockchain/trading-cards-contract.module';
+import { UnboxingModule } from './unboxing/unboxing.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ContractsModule } from './blockchain/trading-cards-contract.module';
     PublicModule,
     PacksModule,
     ContractsModule,
+    UnboxingModule
   ],
   controllers: [AppController],
   providers: [AppService],

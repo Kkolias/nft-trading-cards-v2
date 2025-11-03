@@ -10,7 +10,6 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-  Unique,
   UpdateDateColumn,
 } from 'typeorm';
 import { CardEntity } from './cards.entity';
@@ -25,10 +24,13 @@ export class MintedCardEntity {
 
   @UpdateDateColumn()
   updatedAt: Date;
-  
+
   @ManyToOne(() => CardEntity)
   @JoinColumn({ name: 'card_id' })
   card: CardEntity;
+
+  @Column({ type: 'int' })
+  amount: number;
 
   @Column()
   @Index()

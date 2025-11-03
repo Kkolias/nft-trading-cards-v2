@@ -10,3 +10,28 @@ pnpm add typeorm-naming-strategies
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 namingStrategy: new SnakeNamingStrategy(), // 💥 tämä ratkaisee
+
+
+
+
+//////
+perehdy tähän erroriin:
+
+Error: nonce has already been used (transaction="0x02f8d2827a6905843b9aca00846b55222a830134b7945fbdb2315678afecb367f032d93f642f64180aa380b86472c4d0ff00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8000000000000000000000000000000000000000000000000000000000000000b0000000000000000000000000000000000000000000000000000000000000001c001a08e1b3ccbc61f7cf4d52056a5a57d637f0d5c19acc3f36dc9d57c741e7315970da01d2ba3457ae58128b2c4ab171202ed1d9c9de1350f1fd5115d005f6bc2a55227", info={ "error": { "code": -32000, "data": { "message": "Nonce too low. Expected nonce to be 6 but got 5. Note that transactions can't be queued when automining." }, "message": "Nonce too low. Expected nonce to be 6 but got 5. Note that transactions can't be queued when automining." } }, code=NONCE_EXPIRED, version=6.15.0)
+    at makeError (C:\Users\elias\Ohjelmointi\web3\nft-trading-cards-v2\backend\node_modules\.pnpm\ethers@6.15.0\node_modules\ethers\src.ts\utils\errors.ts:698:21)      
+    at JsonRpcProvider.getRpcError (C:\Users\elias\Ohjelmointi\web3\nft-trading-cards-v2\backend\node_modules\.pnpm\ethers@6.15.0\node_modules\ethers\src.ts\providers\provider-jsonrpc.ts:1058:33)
+    at <anonymous> (C:\Users\elias\Ohjelmointi\web3\nft-trading-cards-v2\backend\node_modules\.pnpm\ethers@6.15.0\node_modules\ethers\src.ts\providers\provider-jsonrpc.ts:571:45)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  code: 'NONCE_EXPIRED',
+  transaction: '0x02f8d2827a6905843b9aca00846b55222a830134b7945fbdb2315678afecb367f032d93f642f64180aa380b86472c4d0ff00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8000000000000000000000000000000000000000000000000000000000000000b0000000000000000000000000000000000000000000000000000000000000001c001a08e1b3ccbc61f7cf4d52056a5a57d637f0d5c19acc3f36dc9d57c741e7315970da01d2ba3457ae58128b2c4ab171202ed1d9c9de1350f1fd5115d005f6bc2a55227',  
+  info: {
+    error: {
+      code: -32000,
+      message: "Nonce too low. Expected nonce to be 6 but got 5. Note that transactions can't be queued when automining.",
+      data: {
+        message: "Nonce too low. Expected nonce to be 6 but got 5. Note that transactions can't be queued when automining."
+      }
+    }
+  },
+  shortMessage: 'nonce has already been used'
+}

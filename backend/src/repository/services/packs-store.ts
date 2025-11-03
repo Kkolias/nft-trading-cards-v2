@@ -29,6 +29,24 @@ export class PacksStoreService {
     });
   }
 
+  async findByIdWithCards(id: string): Promise<Pack | null> {
+    return this.packsRepository.findOne({
+      where: { id },
+      relations: { cards: true },
+      select: {
+        id: true,
+        onChainId: true,
+        cards: {
+          id: true,
+          tokenId: true,
+          supply: true,
+          unboxCount: true,
+          rarity: true,
+        },
+      },
+    });
+  }
+
   async getAll(): Promise<Pack[]> {
     return this.packsRepository.find({
       relations: { cards: true },

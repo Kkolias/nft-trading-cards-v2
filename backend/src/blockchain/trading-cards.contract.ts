@@ -4,33 +4,32 @@ import contractConfig from '../../contract-config.json';
 
 @Injectable()
 export class TradingCardsContract implements OnModuleInit {
-  private contract: ethers.Contract;
+  private provider: ethers.JsonRpcProvider;
+  private abi: any;
+  private contractAddress: string;
 
   async onModuleInit() {
-    const provider = new ethers.JsonRpcProvider(process.env.RPC_URL);
-    const wallet = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
+    this.provider = new ethers.JsonRpcProvider(process.env.RPC_URL);
 
-    const contractAddress = this.getContractAddress();
-    const abi = this.getAbi();
+    this.contractAddress = this.getContractAddress();
+    this.abi = this.getAbi();
 
-    this.contract = new ethers.Contract(
-      contractAddress,
-      abi,
-      wallet,
-    );
-
-    console.log('Contract owner:', await this.contract.owner());
+    const contract = this.getContractWithSigner();
+    const wallet = new ethers.Wallet(process.env.PRIVATE_KEY!, this.provider);
+    console.log('Contract owner:', await contract.owner());
     console.log('wallet', await wallet.getAddress());
   }
 
   async initNewPack(packId: number, priceWei: string | number | bigint) {
     console.log('Kutsutaan', packId, priceWei);
-    const tx = await this.contract.initNewPack(packId, priceWei.toString());
+    const contract = this.getContractWithSigner();
+    const tx = await contract.initNewPack(packId, priceWei.toString());
     return tx.wait();
   }
 
   async setPackPrice(packId: number, priceWei: string | number | bigint) {
-    const tx = await this.contract.setPackPrice(packId, priceWei.toString());
+    const contract = this.getContractWithSigner();
+    const tx = await contract.setPackPrice(packId, priceWei.toString());
     return tx.wait();
   }
 
@@ -39,21 +38,24 @@ export class TradingCardsContract implements OnModuleInit {
     userAddress: string,
     amount: number = 1,
   ): Promise<ethers.TransactionReceipt> {
-    const tx = await this.contract.mintCardToUser(
+    const contract = this.getContractWithSigner();
+    const tx = await contract.mintCard(
       userAddress,
       cardTokenId,
       amount,
     );
-    return tx.wait;
+    return tx.wait();
   }
 
   async createNewCard(tokenId: number): Promise<ethers.TransactionReceipt> {
-    const tx = await this.contract.createNewCard(tokenId);
+    const contract = this.getContractWithSigner();
+    const tx = await contract.createNewCard(tokenId);
     return tx.wait();
   }
 
   async payPack(packId: number, amountWei: string) {
-    const tx = await this.contract.payPack(packId, { value: amountWei });
+    const contract = this.getContractWithSigner();
+    const tx = await contract.payPack(packId, { value: amountWei });
     return tx.wait();
   }
 
@@ -66,7 +68,12 @@ export class TradingCardsContract implements OnModuleInit {
     return contractConfig?.contractAddress;
   }
 
-  getInstance() {
-    return this.contract;
+  private getContractWithSigner() {
+    const wallet = new ethers.Wallet(process.env.PRIVATE_KEY!, this.provider);
+    return new ethers.Contract(
+      this.contractAddress,
+      this.abi,
+      wallet,
+    );
   }
 }
