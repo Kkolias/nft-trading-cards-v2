@@ -8,4 +8,7 @@ export class UnboxPackDto {
 
     @IsString()
     userAddress: string;
+
+    @IsString()
+    txHash: string;
 }

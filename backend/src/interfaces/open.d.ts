@@ -5,6 +5,7 @@ export interface OpenItem {
   createdAt: Date;
   updatedAt: Date;
   userWallet: string;
+  txHash: string;
   pack: Pack;
   openedAt: Date;
 }

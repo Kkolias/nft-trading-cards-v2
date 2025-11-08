@@ -9,6 +9,7 @@ import { MintedCard } from '../../interfaces/minted-cards';
 import { TradingCardsContract } from '../../blockchain/trading-cards.contract';
 import { Card } from '../../interfaces/card';
 import { ethers } from 'ethers';
+import { OpenItem } from '../../interfaces/open';
 
 export class PackUnboxHandler {
   readonly repositoryService: RepositoryService;
@@ -20,12 +21,19 @@ export class PackUnboxHandler {
     this.tradingCardsContract = unboxingService.tradingCardsContract;
   }
 
-  async unboxPack(packId: string, userAddress: string) {
+  async unboxPack(packId: string, userAddress: string, txHash: string) {
+    const isTxValid = await this.isTxHasValid(txHash);
+    if (!isTxValid) {
+      throw new Error('Transaction hash has already been used for unboxing');
+    }
+
     const packWithCards =
       await this.repositoryService.packsStore.findByIdWithCards(packId);
     if (!packWithCards) {
       throw new Error('Pack not found');
     }
+
+    const openedAt = new Date();
 
     const cards = packWithCards.cards;
     const numberOfCardsToUnbox = 5;
@@ -36,7 +44,11 @@ export class PackUnboxHandler {
       );
 
     // return unboxedCards
-    return await this.mintUnboxedCardsToUser(userAddress, unboxedCards);
+    const output = await this.mintUnboxedCardsToUser(userAddress, unboxedCards);
+    if(output) {
+      await this.createOpenRecord(packId, userAddress, txHash, openedAt);
+    }
+    return output;
   }
 
   private async mintUnboxedCardsToUser(
@@ -83,5 +95,30 @@ export class PackUnboxHandler {
 
   private mintSuccess(receipt: ethers.TransactionReceipt): boolean {
     return receipt.status === 1;
+  }
+
+  private async isTxHasValid(txHash: string): Promise<boolean> {
+    const entryExists =
+      await this.repositoryService.opensStore.existsForTxHash(txHash);
+    return !entryExists;
+  }
+
+  private async createOpenRecord(
+    packId: string,
+    userAddress: string,
+    txHash: string,
+    openedAt: Date,
+  ): Promise<boolean> {
+    const openPayload: DeepPartial<OpenItem> = {
+      pack: {
+        id: packId,
+      },
+      userWallet: userAddress,
+      txHash,
+      openedAt,
+    };
+
+    const result = await this.repositoryService.opensStore.save(openPayload);
+    return !!result;
   }
 }

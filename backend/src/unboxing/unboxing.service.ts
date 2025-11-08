@@ -15,8 +15,8 @@ export class UnboxingService {
     this.packUnboxHandler = new PackUnboxHandler(this);
   }
 
-  async unboxPack(packId: string, userAddress: string): Promise<CardPick[]> {
-    return this.packUnboxHandler.unboxPack(packId, userAddress);
+  async unboxPack(packId: string, userAddress: string, txHash: string): Promise<CardPick[]> {
+    return this.packUnboxHandler.unboxPack(packId, userAddress, txHash);
   }
 
   async getAddressUnboxedCards(address: string): Promise<MintedCard[]> {

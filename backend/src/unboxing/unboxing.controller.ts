@@ -14,10 +14,10 @@ export class UnboxingController {
 
   @Post('unbox-pack')
   async createCard(
-    @Body() { packId, userAddress }: UnboxPackDto,
+    @Body() { packId, userAddress, txHash }: UnboxPackDto,
     // @CurrentUser() user: User,
   ): Promise<CardPick[]> {
-    return this.service.unboxPack(packId, userAddress);
+    return this.service.unboxPack(packId, userAddress, txHash);
   }
 
   @Get("unboxed-cards")

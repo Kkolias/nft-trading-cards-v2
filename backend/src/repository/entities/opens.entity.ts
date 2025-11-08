@@ -27,6 +27,10 @@ export class OpenEntity {
   @Column()
   userWallet: string;
 
+  // unique transaction hash for the open action
+  @Column({ type: 'varchar', unique: true })
+  txHash: string;
+
   @ManyToOne(() => PackEntity, (pack) => pack.opens)
   @JoinColumn({ name: 'pack_id' })
   pack: PackEntity;
