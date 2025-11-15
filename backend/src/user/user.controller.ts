@@ -32,7 +32,7 @@ export class UserController {
   @Post('login')
   async login(
     @Body() { email, password }: { email: string; password: string },
-  ) {
+  ): Promise<{ success: boolean; error?: string; token?: string }> {
     const { error, token } = await this.userService.validateUser(email, password);
     if(error) {
       return { success: false, error };
